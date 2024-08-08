@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { login, signup } from '../../redux/authSlice.js';
+import {
+  loginRequest,
+  loginSuccess,
+  loginFailure,
+  signupRequest,
+  signupSuccess,
+  signupFailure
+} from '../../redux/authSlice.js';
 import { useNavigate } from 'react-router-dom';
-import './LoginForm.css'
+import './LoginForm.css';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -14,11 +21,10 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-   
     if (!emailRegex.test(email)) {
       setErrors('Please enter a valid email address.');
       return;
@@ -41,13 +47,55 @@ const LoginForm = () => {
       }
 
       setErrors('');
-      dispatch(signup({ email, password, name }));
+      dispatch(signupRequest());
+      try {
+    
+        const response = await fetch('http://localhost:5000/api/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password, name }),
+        });
+
+        console.log(response)
+
+        if (response.ok) {
+          const user = await response.json();
+          dispatch(signupSuccess(user));
+          navigate('/');
+        } else {
+          const error = await response.json();
+          dispatch(signupFailure(error));
+        }
+      } catch (error) {
+        dispatch(signupFailure(error.toString()));
+      }
     } else {
       setErrors('');
-      dispatch(login({ email, password }));
+      dispatch(loginRequest());
+      try {
+        // Replace with your API call for login
+        const response = await fetch('/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (response.ok) {
+          const user = await response.json();
+          dispatch(loginSuccess(user));
+          navigate('/');
+        } else {
+          const error = await response.json();
+          dispatch(loginFailure(error));
+        }
+      } catch (error) {
+        dispatch(loginFailure(error.toString()));
+      }
     }
-    
-    navigate('/');
   };
 
   return (

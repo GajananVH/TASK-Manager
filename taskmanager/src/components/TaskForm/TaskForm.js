@@ -3,24 +3,25 @@ import { useDispatch } from 'react-redux';
 import { addTask } from '../../redux/taskSlice';
 import { useNavigate } from 'react-router-dom';
 
-
 const TaskForm = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [taskDuration, setTaskDuration] = useState('');
-  const [status, setStatus] = useState('Queued'); 
+  const [status, setStatus] = useState('Queued');
+  const [category, setCategory] = useState('Work'); 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newTask = {
-      id: Date.now(), 
+      id: Date.now(),
       title,
       description,
       taskDuration,
-      status, 
-      completed: false, 
+      status,
+      category, 
+      completed: false,
     };
     console.log(newTask);
     dispatch(addTask(newTask));
@@ -68,6 +69,21 @@ const TaskForm = () => {
           <option value="In Progress">In Progress</option>
           <option value="Completed">Completed</option>
           <option value="On Hold">On Hold</option>
+        </select>
+      </div>
+      <div>
+        <label>Category:</label>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          required
+        >
+          <option value="Work">Work</option>
+          <option value="Personal">Personal</option>
+          <option value="Shopping">Shopping</option>
+          <option value="Travel">Travel</option>
+          <option value="Learning">Learning</option>
+          <option value="Finance">Finance</option>
         </select>
       </div>
       <button type="submit">Add Task</button>
