@@ -1,0 +1,20 @@
+/* ViewTask.css */
+
+.view-task-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	background-color: #f4f4f4;
+	min-height: 100vh; 
+	box-sizing: border-box;
+  }
+  
+  .view-task-title {
+	margin-bottom: 20px;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #333;
+	text-align: center;
+  }
+  

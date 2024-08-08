@@ -1,0 +1,43 @@
+/* ViewTaskList.css */
+
+.data-grid-container {
+	width: 100%;
+	max-width: 1200px;
+	height: 600px;
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	overflow: hidden;
+	margin: 0 auto; 
+	padding: 20px;
+	box-sizing: border-box;
+  }
+  
+  .data-grid-container .MuiDataGrid-root {
+	border: none; 
+  }
+  
+  .data-grid-container .MuiDataGrid-cell {
+	font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+	font-size: 0.875rem;
+	color: #333;
+  }
+  
+  .data-grid-container .MuiDataGrid-columnHeaders {
+	background-color: #007bff; 
+	color: #4512c7; 
+	font-weight: bold;
+  }
+  
+  .data-grid-container .MuiDataGrid-footerContainer {
+	background-color: #f4f4f4; 
+  }
+  
+  .data-grid-container .MuiDataGrid-row:hover {
+	background-color: #eaf4ff; 
+  }
+  
+  .data-grid-container .MuiDataGrid-checkboxInput {
+	color: #007bff; 
+  }
+  
